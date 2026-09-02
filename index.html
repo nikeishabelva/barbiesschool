@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbie School — Announcement Center</title>
+<meta name="theme-color" content="#f7a8c4">
+<style>
+:root{
+  --pink:#f7a8c4; --pink2:#ffe4ee; --pink3:#fff4f8;
+  --rose:#d95f91; --dark:#4d3541; --muted:#8d7180;
+  --white:#fff; --line:#f3d5e2; --green:#7cc9a1;
+  --shadow:0 12px 35px rgba(198,91,135,.12);
+}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#fff,#fff3f8);color:var(--dark)}
+button,input,textarea,select{font:inherit}
+.app{display:flex;min-height:100vh}
+.sidebar{width:260px;background:#fff;border-right:1px solid var(--line);padding:25px 18px;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:12px;padding:8px 10px 28px}
+.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#f58eb2,#ffd4e3);display:grid;place-items:center;font-size:25px;box-shadow:0 8px 20px #f5b8ce}
+.brand h1{font-size:18px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:11px;letter-spacing:1px}
+.nav{display:grid;gap:8px}.nav button{border:0;background:transparent;color:#765968;padding:13px 14px;text-align:left;border-radius:13px;cursor:pointer;font-weight:600}.nav button.active,.nav button:hover{background:var(--pink2);color:var(--rose)}
+.side-card{margin-top:35px;background:var(--pink3);border:1px solid var(--line);border-radius:18px;padding:15px;font-size:12px;color:var(--muted)}
+.main{flex:1;padding:28px 34px;max-width:1500px;margin:auto;width:100%}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}.topbar h2{margin:0;font-size:25px}.topbar p{margin:6px 0 0;color:var(--muted);font-size:13px}
+.user{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);padding:8px 12px;border-radius:30px}.avatar{width:34px;height:34px;border-radius:50%;background:var(--pink2);display:grid;place-items:center}
+.hero{background:linear-gradient(120deg,#f59abb,#fbc6d9 65%,#fff);border-radius:25px;padding:30px;color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"✦  ♡  ✧";position:absolute;right:25px;top:18px;font-size:34px;opacity:.6}.hero h3{font-size:28px;margin:0 0 8px}.hero p{margin:0;max-width:650px;opacity:.92}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:20px 0}.stat,.panel{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}.stat{padding:19px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:27px;margin-top:5px;color:var(--rose)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.search{flex:1;min-width:220px;padding:12px 15px;border:1px solid var(--line);border-radius:13px;outline:0}.filter,.primary,.ghost{border:0;border-radius:13px;padding:11px 15px;cursor:pointer}.filter,.ghost{background:#fff;border:1px solid var(--line);color:#765968}.primary{background:var(--rose);color:#fff;font-weight:700}
+.grid{display:grid;grid-template-columns:1.7fr 1fr;gap:20px}.panel{padding:20px}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.panel h3{margin:0;font-size:17px}.ann-list{display:grid;gap:12px}
+.ann{padding:16px;border:1px solid var(--line);border-radius:16px;cursor:pointer;transition:.2s}.ann:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(198,91,135,.1)}.ann-top{display:flex;justify-content:space-between;gap:10px}.tag{display:inline-block;background:var(--pink2);color:var(--rose);font-size:11px;padding:5px 9px;border-radius:20px;font-weight:700}.ann h4{margin:9px 0 6px;font-size:16px}.ann p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}.date{font-size:11px;color:#a48a96}
+.events{display:grid;gap:11px}.event{display:flex;gap:12px;align-items:center;padding:11px;background:var(--pink3);border-radius:14px}.event-date{width:46px;height:46px;border-radius:13px;background:#fff;display:grid;place-items:center;color:var(--rose);font-weight:800;font-size:12px;text-align:center}.event b{font-size:13px}.event small{display:block;color:var(--muted);margin-top:3px}
+.modal{display:none;position:fixed;inset:0;background:rgba(67,37,51,.35);backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:20px;z-index:5}.modal.show{display:flex}.modal-box{background:#fff;border-radius:24px;max-width:600px;width:100%;padding:25px;box-shadow:0 25px 70px rgba(67,37,51,.2)}.close{float:right;border:0;background:var(--pink2);width:36px;height:36px;border-radius:50%;cursor:pointer}.modal-box h2{margin-top:5px;color:var(--rose)}.modal-box p{color:#6e5863;line-height:1.7}
+.admin{display:none;margin-top:20px}.admin.show{display:block}.form{display:grid;gap:10px}.form input,.form textarea,.form select{padding:12px;border:1px solid var(--line);border-radius:12px;outline:0}.form textarea{min-height:110px;resize:vertical}
+.empty{text-align:center;color:var(--muted);padding:30px}.footer{text-align:center;color:#a98d99;font-size:11px;margin-top:25px}
+@media(max-width:900px){.sidebar{width:76px;padding:15px 8px}.brand div:last-child,.nav span,.side-card{display:none}.brand{padding:5px 5px 25px}.nav button{text-align:center;font-size:0}.nav button:first-letter{font-size:20px}.main{padding:20px}.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+@media(max-width:550px){.topbar{align-items:flex-start}.user span{display:none}.stats{grid-template-columns:1fr 1fr}.hero h3{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">🎀</div><div><h1>Barbie School</h1><p>ANNOUNCEMENT CENTER</p></div></div>
+  <nav class="nav">
+    <button class="active" data-view="dashboard">🏠 <span>Dashboard</span></button>
+    <button data-view="announcements">📢 <span>Pengumuman</span></button>
+    <button data-view="events">📅 <span>Agenda Sekolah</span></button>
+    <button data-view="admin">✏️ <span>Kelola Pengumuman</span></button>
+  </nav>
+  <div class="side-card">✨ <b>Tip hari ini</b><br>Selalu cek pengumuman terbaru agar tidak ketinggalan agenda sekolah.</div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div><h2 id="pageTitle">Dashboard</h2><p id="today"></p></div>
+  <div class="user"><div class="avatar">👩🏻‍🎓</div><span>Student Portal</span></div>
+</header>
+
+<section class="hero">
+  <h3>Welcome to Barbie School! 🎀</h3>
+  <p>Pusat informasi dan pengumuman sekolah dalam satu tempat. Stay updated, stay fabulous, keep learning! ✨</p>
+</section>
+
+<section class="stats">
+  <div class="stat"><small>Total Pengumuman</small><strong id="statAnnouncements">0</strong></div>
+  <div class="stat"><small>Pengumuman Baru</small><strong id="statNew">0</strong></div>
+  <div class="stat"><small>Agenda Mendatang</small><strong id="statEvents">0</strong></div>
+  <div class="stat"><small>Status Sistem</small><strong>Online</strong></div>
+</section>
+
+<section id="dashboardView">
+  <div class="toolbar">
+    <input class="search" id="search" placeholder="🔎 Cari pengumuman...">
+    <select class="filter" id="category"><option value="all">Semua kategori</option><option>Akademik</option><option>Kegiatan</option><option>OSIS</option><option>Administrasi</option></select>
+  </div>
+  <div class="grid">
+    <div class="panel"><div class="panel-head"><h3>📢 Pengumuman Terbaru</h3><button class="ghost" id="seeAll">Lihat semua</button></div><div class="ann-list" id="annList"></div></div>
+    <div class="panel"><div class="panel-head"><h3>📅 Agenda Terdekat</h3></div><div class="events" id="eventList"></div></div>
+  </div>
+</section>
+
+<section id="adminView" class="admin">
+  <div class="panel">
+    <div class="panel-head"><h3>✏️ Tambah Pengumuman</h3></div>
+    <div class="form">
+      <input id="newTitle" placeholder="Judul pengumuman">
+      <select id="newCategory"><option>Akademik</option><option>Kegiatan</option><option>OSIS</option><option>Administrasi</option></select>
+      <input id="newDate" type="date">
+      <textarea id="newBody" placeholder="Isi pengumuman..."></textarea>
+      <button class="primary" id="addBtn">Publikasikan Pengumuman ✨</button>
+    </div>
+  </div>
+</section>
+
+<div class="footer">Barbie School • School Announcement Center • Data tersimpan di browser perangkat ini</div>
+</main>
+</div>
+
+<div class="modal" id="modal"><div class="modal-box"><button class="close" id="close">×</button><span class="tag" id="mTag"></span><h2 id="mTitle"></h2><div class="date" id="mDate"></div><p id="mBody"></p></div></div>
+
+<script>
+const defaultAnnouncements=[
+ {id:1,title:"Jadwal Ujian Tengah Semester",cat:"Akademik",date:"2026-09-07",body:"Ujian Tengah Semester akan dilaksanakan mulai Senin, 7 September 2026. Silakan cek jadwal masing-masing kelas dan persiapkan diri dengan baik. Semangat, Barbie Scholars! 🎀"},
+ {id:2,title:"Pendaftaran Ekstrakurikuler Dibuka",cat:"Kegiatan",date:"2026-09-03",body:"Pendaftaran ekstrakurikuler untuk semester baru telah dibuka. Pilih kegiatan yang sesuai dengan minat dan bakatmu. Pendaftaran dilakukan melalui wali kelas."},
+ {id:3,title:"Rapat Pengurus OSIS",cat:"OSIS",date:"2026-09-05",body:"Seluruh pengurus OSIS dimohon hadir pada rapat persiapan program kerja. Detail tempat dan waktu dapat dilihat pada agenda sekolah."},
+ {id:4,title:"Pembayaran Administrasi Semester",cat:"Administrasi",date:"2026-09-10",body:"Pengingat pembayaran administrasi semester. Untuk informasi lebih lanjut, silakan menghubungi bagian tata usaha sekolah."}
+];
+const defaultEvents=[
+ {date:"03 SEP",title:"Pendaftaran Ekskul",time:"08:00 — 14:00"},
+ {date:"05 SEP",title:"Rapat OSIS",time:"13:00 — 15:00"},
+ {date:"07 SEP",title:"UTS Dimulai",time:"Sesuai jadwal kelas"},
+ {date:"12 SEP",title:"School Charity Day",time:"09:00 — selesai"}
+];
+let announcements=JSON.parse(localStorage.getItem("barbieAnnouncements")||"null")||defaultAnnouncements;
+const $=id=>document.getElementById(id);
+function fmt(d){return new Date(d+"T00:00:00").toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})}
+function render(filter=""){
+ let cat=$("category").value, q=filter.toLowerCase();
+ let data=announcements.filter(a=>(cat==="all"||a.cat===cat)&&(a.title+" "+a.body).toLowerCase().includes(q));
+ $("annList").innerHTML=data.length?data.map(a=>`<article class="ann" onclick="openAnn(${a.id})"><div class="ann-top"><span class="tag">${a.cat}</span><span class="date">${fmt(a.date)}</span></div><h4>${a.title}</h4><p>${a.body.slice(0,115)}${a.body.length>115?"…":""}</p></article>`).join(""):`<div class="empty">Tidak ada pengumuman yang cocok 💗</div>`;
+ $("statAnnouncements").textContent=announcements.length;
+ $("statNew").textContent=announcements.filter(a=>new Date(a.date)>=new Date("2026-09-01")).length;
+ $("statEvents").textContent=defaultEvents.length;
+ $("eventList").innerHTML=defaultEvents.map(e=>`<div class="event"><div class="event-date">${e.date}</div><div><b>${e.title}</b><small>${e.time}</small></div></div>`).join("");
+}
+window.openAnn=id=>{let a=announcements.find(x=>x.id===id);$("mTag").textContent=a.cat;$("mTitle").textContent=a.title;$("mDate").textContent=fmt(a.date);$("mBody").textContent=a.body;$("modal").classList.add("show")}
+$("close").onclick=()=>$("modal").classList.remove("show");$("modal").onclick=e=>{if(e.target.id==="modal")$("modal").classList.remove("show")};
+$("search").oninput=e=>render(e.target.value);$("category").onchange=()=>render($("search").value);
+$("seeAll").onclick=()=>{document.querySelector('[data-view="announcements"]').click()};
+$("addBtn").onclick=()=>{
+ let title=$("newTitle").value.trim(), body=$("newBody").value.trim(), date=$("newDate").value||new Date().toISOString().slice(0,10), cat=$("newCategory").value;
+ if(!title||!body)return alert("Isi judul dan isi pengumuman terlebih dahulu.");
+ announcements.unshift({id:Date.now(),title,body,date,cat});localStorage.setItem("barbieAnnouncements",JSON.stringify(announcements));
+ $("newTitle").value="";$("newBody").value="";render();alert("Pengumuman berhasil dipublikasikan! 🎀");
+};
+document.querySelectorAll(".nav button").forEach(btn=>btn.onclick=()=>{
+ document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
+ let v=btn.dataset.view; $("dashboardView").style.display=v==="dashboard"||v==="announcements"?"block":"none";$("adminView").classList.toggle("show",v==="admin");
+ $("pageTitle").textContent=v==="admin"?"Kelola Pengumuman":v==="events"?"Agenda Sekolah":v==="announcements"?"Pengumuman":"Dashboard";
+ if(v==="events"){ $("dashboardView").style.display="block"; $("annList").innerHTML='<div class="empty">Gunakan panel “Agenda Terdekat” untuk melihat agenda sekolah 💗</div>'; }
+});
+$("today").textContent=new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+render();
+</script>
+</body>
+</html>
