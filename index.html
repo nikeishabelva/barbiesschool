@@ -17,37 +17,51 @@
 button,input,textarea,select{font:inherit}
 .app{display:flex;min-height:100vh}
 .sidebar{width:260px;background:#fff;border-right:1px solid var(--line);padding:25px 18px;position:sticky;top:0;height:100vh}
-.brand{display:flex;align-items:center;gap:12px;padding:8px 10px 28px}
-.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#f58eb2,#ffd4e3);display:grid;place-items:center;font-size:25px;box-shadow:0 8px 20px #f5b8ce}
+.brand{display:flex;align-items:center;gap:12px;padding:8px 10px 28px;cursor:default;user-select:none}
+.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#f58eb2,#ffd4e3);display:grid;place-items:center;font-size:25px;box-shadow:0 8px 20px #f5b8ce;cursor:pointer;transition:.15s}
+.logo:active{transform:scale(.92)}
 .brand h1{font-size:18px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:11px;letter-spacing:1px}
 .nav{display:grid;gap:8px}.nav button{border:0;background:transparent;color:#765968;padding:13px 14px;text-align:left;border-radius:13px;cursor:pointer;font-weight:600}.nav button.active,.nav button:hover{background:var(--pink2);color:var(--rose)}
+.nav button.hidden{display:none}
 .side-card{margin-top:35px;background:var(--pink3);border:1px solid var(--line);border-radius:18px;padding:15px;font-size:12px;color:var(--muted)}
 .main{flex:1;padding:28px 34px;max-width:1500px;margin:auto;width:100%}
 .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}.topbar h2{margin:0;font-size:25px}.topbar p{margin:6px 0 0;color:var(--muted);font-size:13px}
 .user{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);padding:8px 12px;border-radius:30px}.avatar{width:34px;height:34px;border-radius:50%;background:var(--pink2);display:grid;place-items:center}
 .hero{background:linear-gradient(120deg,#f59abb,#fbc6d9 65%,#fff);border-radius:25px;padding:30px;color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"✦  ♡  ✧";position:absolute;right:25px;top:18px;font-size:34px;opacity:.6}.hero h3{font-size:28px;margin:0 0 8px}.hero p{margin:0;max-width:650px;opacity:.92}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:20px 0}.stat,.panel{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}.stat{padding:19px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:27px;margin-top:5px;color:var(--rose)}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.search{flex:1;min-width:220px;padding:12px 15px;border:1px solid var(--line);border-radius:13px;outline:0}.filter,.primary,.ghost{border:0;border-radius:13px;padding:11px 15px;cursor:pointer}.filter,.ghost{background:#fff;border:1px solid var(--line);color:#765968}.primary{background:var(--rose);color:#fff;font-weight:700}
-.grid{display:grid;grid-template-columns:1.7fr 1fr;gap:20px}.panel{padding:20px}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.panel h3{margin:0;font-size:17px}.ann-list{display:grid;gap:12px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.search{flex:1;min-width:220px;padding:12px 15px;border:1px solid var(--line);border-radius:13px;outline:0}.filter,.primary,.ghost,.danger{border:0;border-radius:13px;padding:11px 15px;cursor:pointer}.filter,.ghost{background:#fff;border:1px solid var(--line);color:#765968}.primary{background:var(--rose);color:#fff;font-weight:700}.danger{background:#e74c6f;color:#fff;font-weight:600}
+.grid{display:grid;grid-template-columns:1.7fr 1fr;gap:20px}.panel{padding:20px}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;flex-wrap:wrap;gap:8px}.panel h3{margin:0;font-size:17px}.ann-list{display:grid;gap:12px}
 .ann{padding:16px;border:1px solid var(--line);border-radius:16px;cursor:pointer;transition:.2s}.ann:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(198,91,135,.1)}.ann-top{display:flex;justify-content:space-between;gap:10px}.tag{display:inline-block;background:var(--pink2);color:var(--rose);font-size:11px;padding:5px 9px;border-radius:20px;font-weight:700}.ann h4{margin:9px 0 6px;font-size:16px}.ann p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}.date{font-size:11px;color:#a48a96}
-.events{display:grid;gap:11px}.event{display:flex;gap:12px;align-items:center;padding:11px;background:var(--pink3);border-radius:14px}.event-date{width:46px;height:46px;border-radius:13px;background:#fff;display:grid;place-items:center;color:var(--rose);font-weight:800;font-size:12px;text-align:center}.event b{font-size:13px}.event small{display:block;color:var(--muted);margin-top:3px}
-.modal{display:none;position:fixed;inset:0;background:rgba(67,37,51,.35);backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:20px;z-index:5}.modal.show{display:flex}.modal-box{background:#fff;border-radius:24px;max-width:600px;width:100%;padding:25px;box-shadow:0 25px 70px rgba(67,37,51,.2)}.close{float:right;border:0;background:var(--pink2);width:36px;height:36px;border-radius:50%;cursor:pointer}.modal-box h2{margin-top:5px;color:var(--rose)}.modal-box p{color:#6e5863;line-height:1.7}
+.ann-actions{display:flex;gap:6px;margin-top:10px}
+.ann-actions button{padding:6px 10px;font-size:12px;border-radius:10px}
+.events{display:grid;gap:11px}.event{display:flex;gap:12px;align-items:center;padding:11px;background:var(--pink3);border-radius:14px}.event-date{width:46px;height:46px;border-radius:13px;background:#fff;display:grid;place-items:center;color:var(--rose);font-weight:800;font-size:12px;text-align:center;flex-shrink:0}.event b{font-size:13px}.event small{display:block;color:var(--muted);margin-top:3px}
+.event-actions{margin-left:auto;display:flex;gap:4px}
+.event-actions button{padding:5px 8px;font-size:11px;border-radius:8px}
+.modal{display:none;position:fixed;inset:0;background:rgba(67,37,51,.35);backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:20px;z-index:50}.modal.show{display:flex}.modal-box{background:#fff;border-radius:24px;max-width:600px;width:100%;padding:25px;box-shadow:0 25px 70px rgba(67,37,51,.2);max-height:90vh;overflow-y:auto}.close{float:right;border:0;background:var(--pink2);width:36px;height:36px;border-radius:50%;cursor:pointer}.modal-box h2{margin-top:5px;color:var(--rose)}.modal-box p{color:#6e5863;line-height:1.7}
 .admin{display:none;margin-top:20px}.admin.show{display:block}.form{display:grid;gap:10px}.form input,.form textarea,.form select{padding:12px;border:1px solid var(--line);border-radius:12px;outline:0}.form textarea{min-height:110px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .empty{text-align:center;color:var(--muted);padding:30px}.footer{text-align:center;color:#a98d99;font-size:11px;margin-top:25px}
-@media(max-width:900px){.sidebar{width:76px;padding:15px 8px}.brand div:last-child,.nav span,.side-card{display:none}.brand{padding:5px 5px 25px}.nav button{text-align:center;font-size:0}.nav button:first-letter{font-size:20px}.main{padding:20px}.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+.loading{text-align:center;padding:40px;color:var(--muted)}
+.badge-admin{background:var(--rose);color:#fff;font-size:10px;padding:3px 8px;border-radius:10px;margin-left:6px}
+.login-error{color:#e74c6f;font-size:13px;margin-top:8px;display:none}
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tabs button{flex:1}
+@media(max-width:900px){.sidebar{width:76px;padding:15px 8px}.brand div:last-child,.nav span,.side-card{display:none}.brand{padding:5px 5px 25px}.nav button{text-align:center;font-size:0}.nav button:first-letter{font-size:20px}.main{padding:20px}.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
 @media(max-width:550px){.topbar{align-items:flex-start}.user span{display:none}.stats{grid-template-columns:1fr 1fr}.hero h3{font-size:22px}}
 </style>
 </head>
-<body>
-  <body data-shlock-mode="ultimate" data-shlock-domain="" data-shlock-brand="barbiesschool" data-shlock-social="https://www.instagram.com/co0kiesbrb/,https://www.instagram.com/bbeldumpies/,https://www.dailymotion.com/user/nikeishabelva.pma">
+<body data-shlock-mode="ultimate" data-shlock-domain="" data-shlock-brand="barbiesschool" data-shlock-social="https://www.instagram.com/co0kiesbrb/,https://www.instagram.com/bbeldumpies/,https://www.dailymotion.com/user/nikeishabelva.pma">
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">🎀</div><div><h1>Barbie School</h1><p>ANNOUNCEMENT CENTER</p></div></div>
+  <div class="brand">
+    <div class="logo" id="logoBtn" title="Barbie School">🎀</div>
+    <div><h1>Barbie School</h1><p>ANNOUNCEMENT CENTER</p></div>
+  </div>
   <nav class="nav">
     <button class="active" data-view="dashboard">🏠 <span>Dashboard</span></button>
     <button data-view="announcements">📢 <span>Pengumuman</span></button>
     <button data-view="events">📅 <span>Agenda Sekolah</span></button>
-    <button data-view="admin">✏️ <span>Kelola Pengumuman</span></button>
+    <button data-view="admin" id="navAdmin" class="hidden">✏️ <span>Kelola</span></button>
   </nav>
   <div class="side-card">✨ <b>Tip hari ini</b><br>Selalu cek pengumuman terbaru agar tidak ketinggalan agenda sekolah.</div>
 </aside>
@@ -55,7 +69,10 @@ button,input,textarea,select{font:inherit}
 <main class="main">
 <header class="topbar">
   <div><h2 id="pageTitle">Dashboard</h2><p id="today"></p></div>
-  <div class="user"><div class="avatar">👩🏻‍🎓</div><span>Student Portal</span></div>
+  <div class="user">
+    <div class="avatar">👩🏻‍🎓</div>
+    <span id="userLabel">Student Portal</span>
+  </div>
 </header>
 
 <section class="hero">
@@ -64,86 +81,600 @@ button,input,textarea,select{font:inherit}
 </section>
 
 <section class="stats">
-  <div class="stat"><small>Total Pengumuman</small><strong id="statAnnouncements">0</strong></div>
-  <div class="stat"><small>Pengumuman Baru</small><strong id="statNew">0</strong></div>
-  <div class="stat"><small>Agenda Mendatang</small><strong id="statEvents">0</strong></div>
-  <div class="stat"><small>Status Sistem</small><strong>Online</strong></div>
+  <div class="stat"><small>Total Pengumuman</small><strong id="statAnnouncements">—</strong></div>
+  <div class="stat"><small>Pengumuman Baru</small><strong id="statNew">—</strong></div>
+  <div class="stat"><small>Agenda Mendatang</small><strong id="statEvents">—</strong></div>
+  <div class="stat"><small>Status Sistem</small><strong id="statStatus">…</strong></div>
 </section>
 
 <section id="dashboardView">
   <div class="toolbar">
     <input class="search" id="search" placeholder="🔎 Cari pengumuman...">
-    <select class="filter" id="category"><option value="all">Semua kategori</option><option>Akademik</option><option>Kegiatan</option><option>OSIS</option><option>Administrasi</option></select>
+    <select class="filter" id="category">
+      <option value="all">Semua kategori</option>
+      <option>Akademik</option>
+      <option>Kegiatan</option>
+      <option>OSIS</option>
+      <option>Administrasi</option>
+    </select>
   </div>
   <div class="grid">
-    <div class="panel"><div class="panel-head"><h3>📢 Pengumuman Terbaru</h3><button class="ghost" id="seeAll">Lihat semua</button></div><div class="ann-list" id="annList"></div></div>
-    <div class="panel"><div class="panel-head"><h3>📅 Agenda Terdekat</h3></div><div class="events" id="eventList"></div></div>
-  </div>
-</section>
-
-<section id="adminView" class="admin">
-  <div class="panel">
-    <div class="panel-head"><h3>✏️ Tambah Pengumuman</h3></div>
-    <div class="form">
-      <input id="newTitle" placeholder="Judul pengumuman">
-      <select id="newCategory"><option>Akademik</option><option>Kegiatan</option><option>OSIS</option><option>Administrasi</option></select>
-      <input id="newDate" type="date">
-      <textarea id="newBody" placeholder="Isi pengumuman..."></textarea>
-      <button class="primary" id="addBtn">Publikasikan Pengumuman ✨</button>
+    <div class="panel">
+      <div class="panel-head">
+        <h3>📢 Pengumuman Terbaru</h3>
+        <button class="ghost" id="seeAll">Lihat semua</button>
+      </div>
+      <div class="ann-list" id="annList"><div class="loading">Memuat pengumuman…</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>📅 Agenda Terdekat</h3></div>
+      <div class="events" id="eventList"><div class="loading">Memuat agenda…</div></div>
     </div>
   </div>
 </section>
 
-<div class="footer">Barbie School • School Announcement Center • Data tersimpan di browser perangkat ini</div>
+<section id="adminView" class="admin">
+  <div class="tabs">
+    <button class="primary" id="tabAnn">📢 Pengumuman</button>
+    <button class="ghost" id="tabEvt">📅 Agenda</button>
+  </div>
+
+  <!-- Admin Announcements -->
+  <div id="adminAnnPanel">
+    <div class="panel" style="margin-bottom:18px">
+      <div class="panel-head"><h3 id="formAnnTitle">✏️ Tambah Pengumuman</h3></div>
+      <div class="form">
+        <input type="hidden" id="editAnnId">
+        <input id="newTitle" placeholder="Judul pengumuman">
+        <div class="form-row">
+          <select id="newCategory">
+            <option>Akademik</option>
+            <option>Kegiatan</option>
+            <option>OSIS</option>
+            <option>Administrasi</option>
+          </select>
+          <input id="newDate" type="date">
+        </div>
+        <textarea id="newBody" placeholder="Isi pengumuman..."></textarea>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="primary" id="saveAnnBtn">Publikasikan ✨</button>
+          <button class="ghost" id="cancelAnnBtn" style="display:none">Batal Edit</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>Daftar Pengumuman (CRUD)</h3></div>
+      <div class="ann-list" id="adminAnnList"></div>
+    </div>
+  </div>
+
+  <!-- Admin Events -->
+  <div id="adminEvtPanel" style="display:none">
+    <div class="panel" style="margin-bottom:18px">
+      <div class="panel-head"><h3 id="formEvtTitle">✏️ Tambah Agenda</h3></div>
+      <div class="form">
+        <input type="hidden" id="editEvtId">
+        <input id="evtTitle" placeholder="Judul agenda">
+        <div class="form-row">
+          <input id="evtDateLabel" placeholder="Label tanggal (cth: 03 SEP)">
+          <input id="evtTime" placeholder="Waktu (cth: 08:00 — 14:00)">
+        </div>
+        <input id="evtSortDate" type="date" title="Tanggal untuk pengurutan">
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="primary" id="saveEvtBtn">Simpan Agenda ✨</button>
+          <button class="ghost" id="cancelEvtBtn" style="display:none">Batal Edit</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>Daftar Agenda (CRUD)</h3></div>
+      <div class="events" id="adminEvtList"></div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">Barbie School • School Announcement Center • Powered by Google Sheets</div>
 </main>
 </div>
 
-<div class="modal" id="modal"><div class="modal-box"><button class="close" id="close">×</button><span class="tag" id="mTag"></span><h2 id="mTitle"></h2><div class="date" id="mDate"></div><p id="mBody"></p></div></div>
+<!-- Detail Modal -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="close" id="close">×</button>
+    <span class="tag" id="mTag"></span>
+    <h2 id="mTitle"></h2>
+    <div class="date" id="mDate"></div>
+    <p id="mBody"></p>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal" id="loginModal">
+  <div class="modal-box" style="max-width:380px">
+    <button class="close" id="closeLogin">×</button>
+    <h2 style="margin-top:0">🔐 Admin Login</h2>
+    <p style="margin:0 0 14px;font-size:13px">Masukkan password admin untuk mengakses panel kelola.</p>
+    <div class="form">
+      <input type="password" id="adminPassword" placeholder="Password admin" autocomplete="current-password">
+      <button class="primary" id="loginBtn">Masuk</button>
+      <div class="login-error" id="loginError">Password salah. Coba lagi.</div>
+    </div>
+  </div>
+</div>
 
 <script>
-const defaultAnnouncements=[
- {id:1,title:"Jadwal Ujian Tengah Semester",cat:"Akademik",date:"2026-09-07",body:"Ujian Tengah Semester akan dilaksanakan mulai Senin, 7 September 2026. Silakan cek jadwal masing-masing kelas dan persiapkan diri dengan baik. Semangat, Barbie Scholars! 🎀"},
- {id:2,title:"Pendaftaran Ekstrakurikuler Dibuka",cat:"Kegiatan",date:"2026-09-03",body:"Pendaftaran ekstrakurikuler untuk semester baru telah dibuka. Pilih kegiatan yang sesuai dengan minat dan bakatmu. Pendaftaran dilakukan melalui wali kelas."},
- {id:3,title:"Rapat Pengurus OSIS",cat:"OSIS",date:"2026-09-05",body:"Seluruh pengurus OSIS dimohon hadir pada rapat persiapan program kerja. Detail tempat dan waktu dapat dilihat pada agenda sekolah."},
- {id:4,title:"Pembayaran Administrasi Semester",cat:"Administrasi",date:"2026-09-10",body:"Pengingat pembayaran administrasi semester. Untuk informasi lebih lanjut, silakan menghubungi bagian tata usaha sekolah."}
-];
-const defaultEvents=[
- {date:"03 SEP",title:"Pendaftaran Ekskul",time:"08:00 — 14:00"},
- {date:"05 SEP",title:"Rapat OSIS",time:"13:00 — 15:00"},
- {date:"07 SEP",title:"UTS Dimulai",time:"Sesuai jadwal kelas"},
- {date:"12 SEP",title:"School Charity Day",time:"09:00 — selesai"}
-];
-let announcements=JSON.parse(localStorage.getItem("barbieAnnouncements")||"null")||defaultAnnouncements;
-const $=id=>document.getElementById(id);
-function fmt(d){return new Date(d+"T00:00:00").toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})}
-function render(filter=""){
- let cat=$("category").value, q=filter.toLowerCase();
- let data=announcements.filter(a=>(cat==="all"||a.cat===cat)&&(a.title+" "+a.body).toLowerCase().includes(q));
- $("annList").innerHTML=data.length?data.map(a=>`<article class="ann" onclick="openAnn(${a.id})"><div class="ann-top"><span class="tag">${a.cat}</span><span class="date">${fmt(a.date)}</span></div><h4>${a.title}</h4><p>${a.body.slice(0,115)}${a.body.length>115?"…":""}</p></article>`).join(""):`<div class="empty">Tidak ada pengumuman yang cocok 💗</div>`;
- $("statAnnouncements").textContent=announcements.length;
- $("statNew").textContent=announcements.filter(a=>new Date(a.date)>=new Date("2026-09-01")).length;
- $("statEvents").textContent=defaultEvents.length;
- $("eventList").innerHTML=defaultEvents.map(e=>`<div class="event"><div class="event-date">${e.date}</div><div><b>${e.title}</b><small>${e.time}</small></div></div>`).join("");
-}
-window.openAnn=id=>{let a=announcements.find(x=>x.id===id);$("mTag").textContent=a.cat;$("mTitle").textContent=a.title;$("mDate").textContent=fmt(a.date);$("mBody").textContent=a.body;$("modal").classList.add("show")}
-$("close").onclick=()=>$("modal").classList.remove("show");$("modal").onclick=e=>{if(e.target.id==="modal")$("modal").classList.remove("show")};
-$("search").oninput=e=>render(e.target.value);$("category").onchange=()=>render($("search").value);
-$("seeAll").onclick=()=>{document.querySelector('[data-view="announcements"]').click()};
-$("addBtn").onclick=()=>{
- let title=$("newTitle").value.trim(), body=$("newBody").value.trim(), date=$("newDate").value||new Date().toISOString().slice(0,10), cat=$("newCategory").value;
- if(!title||!body)return alert("Isi judul dan isi pengumuman terlebih dahulu.");
- announcements.unshift({id:Date.now(),title,body,date,cat});localStorage.setItem("barbieAnnouncements",JSON.stringify(announcements));
- $("newTitle").value="";$("newBody").value="";render();alert("Pengumuman berhasil dipublikasikan! 🎀");
+/* =========================================================
+   CONFIG — Ganti URL ini setelah deploy Apps Script
+   ========================================================= */
+const CONFIG = {
+  // ⬇️ GANTI dengan URL Web App hasil deploy Apps Script-mu
+  API_URL: 'https://script.google.com/macros/s/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/exec'
 };
-document.querySelectorAll(".nav button").forEach(btn=>btn.onclick=()=>{
- document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
- let v=btn.dataset.view; $("dashboardView").style.display=v==="dashboard"||v==="announcements"?"block":"none";$("adminView").classList.toggle("show",v==="admin");
- $("pageTitle").textContent=v==="admin"?"Kelola Pengumuman":v==="events"?"Agenda Sekolah":v==="announcements"?"Pengumuman":"Dashboard";
- if(v==="events"){ $("dashboardView").style.display="block"; $("annList").innerHTML='<div class="empty">Gunakan panel “Agenda Terdekat” untuk melihat agenda sekolah 💗</div>'; }
+
+/* =========================================================
+   STATE
+   ========================================================= */
+let announcements = [];
+let events = [];
+let isAdmin = false;
+let logoClicks = 0;
+let logoTimer = null;
+
+const $ = id => document.getElementById(id);
+
+/* =========================================================
+   API HELPERS
+   ========================================================= */
+async function apiGet(action) {
+  const url = `${CONFIG.API_URL}?action=${encodeURIComponent(action)}`;
+  const res = await fetch(url);
+  return res.json();
+}
+
+async function apiPost(payload) {
+  // Apps Script Web App menerima POST sebagai text/plain agar CORS sederhana
+  const res = await fetch(CONFIG.API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
+  });
+  return res.json();
+}
+
+/* =========================================================
+   FORMATTERS
+   ========================================================= */
+function fmt(d) {
+  if (!d) return '';
+  try {
+    return new Date(d + 'T00:00:00').toLocaleDateString('id-ID', {
+      day: 'numeric', month: 'long', year: 'numeric'
+    });
+  } catch { return d; }
+}
+
+/* =========================================================
+   RENDER PUBLIC
+   ========================================================= */
+function render(filter = '') {
+  const cat = $('category').value;
+  const q = filter.toLowerCase();
+  const data = announcements.filter(a =>
+    (cat === 'all' || a.category === cat) &&
+    ((a.title || '') + ' ' + (a.body || '')).toLowerCase().includes(q)
+  );
+
+  $('annList').innerHTML = data.length
+    ? data.map(a => `
+      <article class="ann" onclick="openAnn('${a.id}')">
+        <div class="ann-top">
+          <span class="tag">${a.category || ''}</span>
+          <span class="date">${fmt(a.date)}</span>
+        </div>
+        <h4>${escapeHtml(a.title)}</h4>
+        <p>${escapeHtml((a.body || '').slice(0, 115))}${(a.body || '').length > 115 ? '…' : ''}</p>
+      </article>`).join('')
+    : `<div class="empty">Tidak ada pengumuman yang cocok 💗</div>`;
+
+  $('statAnnouncements').textContent = announcements.length;
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - 30);
+  $('statNew').textContent = announcements.filter(a => new Date(a.date) >= cutoff).length;
+  $('statEvents').textContent = events.length;
+
+  $('eventList').innerHTML = events.length
+    ? events.map(e => `
+      <div class="event">
+        <div class="event-date">${escapeHtml(e.dateLabel || '')}</div>
+        <div>
+          <b>${escapeHtml(e.title)}</b>
+          <small>${escapeHtml(e.time || '')}</small>
+        </div>
+      </div>`).join('')
+    : `<div class="empty">Belum ada agenda</div>`;
+}
+
+function escapeHtml(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+window.openAnn = id => {
+  const a = announcements.find(x => String(x.id) === String(id));
+  if (!a) return;
+  $('mTag').textContent = a.category || '';
+  $('mTitle').textContent = a.title || '';
+  $('mDate').textContent = fmt(a.date);
+  $('mBody').textContent = a.body || '';
+  $('modal').classList.add('show');
+};
+
+/* =========================================================
+   RENDER ADMIN LISTS
+   ========================================================= */
+function renderAdminAnn() {
+  $('adminAnnList').innerHTML = announcements.length
+    ? announcements.map(a => `
+      <article class="ann" style="cursor:default">
+        <div class="ann-top">
+          <span class="tag">${a.category || ''}</span>
+          <span class="date">${fmt(a.date)}</span>
+        </div>
+        <h4>${escapeHtml(a.title)}</h4>
+        <p>${escapeHtml((a.body || '').slice(0, 100))}${(a.body || '').length > 100 ? '…' : ''}</p>
+        <div class="ann-actions">
+          <button class="ghost" onclick="editAnn('${a.id}')">✏️ Edit</button>
+          <button class="danger" onclick="deleteAnn('${a.id}')">🗑️ Hapus</button>
+        </div>
+      </article>`).join('')
+    : `<div class="empty">Belum ada pengumuman</div>`;
+}
+
+function renderAdminEvt() {
+  $('adminEvtList').innerHTML = events.length
+    ? events.map(e => `
+      <div class="event">
+        <div class="event-date">${escapeHtml(e.dateLabel || '')}</div>
+        <div>
+          <b>${escapeHtml(e.title)}</b>
+          <small>${escapeHtml(e.time || '')} · ${e.sortDate || ''}</small>
+        </div>
+        <div class="event-actions">
+          <button class="ghost" onclick="editEvt('${e.id}')">✏️</button>
+          <button class="danger" onclick="deleteEvt('${e.id}')">🗑️</button>
+        </div>
+      </div>`).join('')
+    : `<div class="empty">Belum ada agenda</div>`;
+}
+
+/* =========================================================
+   LOAD DATA
+   ========================================================= */
+async function loadAll() {
+  try {
+    $('statStatus').textContent = '…';
+    const [annRes, evtRes] = await Promise.all([
+      apiGet('getAnnouncements'),
+      apiGet('getEvents')
+    ]);
+    if (annRes.ok) announcements = annRes.data || [];
+    if (evtRes.ok) events = evtRes.data || [];
+    $('statStatus').textContent = 'Online';
+    render($('search').value);
+    if (isAdmin) {
+      renderAdminAnn();
+      renderAdminEvt();
+    }
+  } catch (err) {
+    console.error(err);
+    $('statStatus').textContent = 'Offline';
+    $('annList').innerHTML = `<div class="empty">Gagal memuat data. Cek koneksi / API_URL.</div>`;
+    $('eventList').innerHTML = `<div class="empty">Gagal memuat agenda.</div>`;
+  }
+}
+
+/* =========================================================
+   ADMIN — ANNOUNCEMENTS CRUD
+   ========================================================= */
+$('saveAnnBtn').onclick = async () => {
+  const title = $('newTitle').value.trim();
+  const body = $('newBody').value.trim();
+  const date = $('newDate').value || new Date().toISOString().slice(0, 10);
+  const category = $('newCategory').value;
+  const editId = $('editAnnId').value;
+
+  if (!title || !body) return alert('Isi judul dan isi pengumuman terlebih dahulu.');
+
+  const password = sessionStorage.getItem('barbieAdminPass');
+  if (!password) return alert('Sesi admin habis. Login ulang.');
+
+  $('saveAnnBtn').disabled = true;
+  try {
+    let res;
+    if (editId) {
+      res = await apiPost({
+        action: 'updateAnnouncement',
+        password,
+        id: editId,
+        title, body, date, category
+      });
+    } else {
+      res = await apiPost({
+        action: 'createAnnouncement',
+        password,
+        title, body, date, category
+      });
+    }
+    if (!res.ok) throw new Error(res.error || 'Gagal menyimpan');
+    resetAnnForm();
+    await loadAll();
+    alert(editId ? 'Pengumuman berhasil diperbarui! 🎀' : 'Pengumuman berhasil dipublikasikan! 🎀');
+  } catch (err) {
+    alert('Error: ' + err.message);
+  } finally {
+    $('saveAnnBtn').disabled = false;
+  }
+};
+
+window.editAnn = id => {
+  const a = announcements.find(x => String(x.id) === String(id));
+  if (!a) return;
+  $('editAnnId').value = a.id;
+  $('newTitle').value = a.title || '';
+  $('newBody').value = a.body || '';
+  $('newDate').value = a.date || '';
+  $('newCategory').value = a.category || 'Akademik';
+  $('formAnnTitle').textContent = '✏️ Edit Pengumuman';
+  $('saveAnnBtn').textContent = 'Simpan Perubahan ✨';
+  $('cancelAnnBtn').style.display = 'inline-block';
+  $('adminAnnPanel').scrollIntoView({ behavior: 'smooth' });
+};
+
+$('cancelAnnBtn').onclick = resetAnnForm;
+
+function resetAnnForm() {
+  $('editAnnId').value = '';
+  $('newTitle').value = '';
+  $('newBody').value = '';
+  $('newDate').value = '';
+  $('newCategory').value = 'Akademik';
+  $('formAnnTitle').textContent = '✏️ Tambah Pengumuman';
+  $('saveAnnBtn').textContent = 'Publikasikan ✨';
+  $('cancelAnnBtn').style.display = 'none';
+}
+
+window.deleteAnn = async id => {
+  if (!confirm('Yakin ingin menghapus pengumuman ini?')) return;
+  const password = sessionStorage.getItem('barbieAdminPass');
+  if (!password) return alert('Sesi admin habis. Login ulang.');
+  try {
+    const res = await apiPost({ action: 'deleteAnnouncement', password, id });
+    if (!res.ok) throw new Error(res.error || 'Gagal menghapus');
+    await loadAll();
+    alert('Pengumuman dihapus.');
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+};
+
+/* =========================================================
+   ADMIN — EVENTS CRUD
+   ========================================================= */
+$('saveEvtBtn').onclick = async () => {
+  const title = $('evtTitle').value.trim();
+  const dateLabel = $('evtDateLabel').value.trim();
+  const time = $('evtTime').value.trim();
+  const sortDate = $('evtSortDate').value;
+  const editId = $('editEvtId').value;
+
+  if (!title || !dateLabel) return alert('Isi judul dan label tanggal terlebih dahulu.');
+
+  const password = sessionStorage.getItem('barbieAdminPass');
+  if (!password) return alert('Sesi admin habis. Login ulang.');
+
+  $('saveEvtBtn').disabled = true;
+  try {
+    let res;
+    if (editId) {
+      res = await apiPost({
+        action: 'updateEvent',
+        password,
+        id: editId,
+        title, dateLabel, time, sortDate
+      });
+    } else {
+      res = await apiPost({
+        action: 'createEvent',
+        password,
+        title, dateLabel, time, sortDate
+      });
+    }
+    if (!res.ok) throw new Error(res.error || 'Gagal menyimpan');
+    resetEvtForm();
+    await loadAll();
+    alert(editId ? 'Agenda berhasil diperbarui! 🎀' : 'Agenda berhasil ditambahkan! 🎀');
+  } catch (err) {
+    alert('Error: ' + err.message);
+  } finally {
+    $('saveEvtBtn').disabled = false;
+  }
+};
+
+window.editEvt = id => {
+  const e = events.find(x => String(x.id) === String(id));
+  if (!e) return;
+  $('editEvtId').value = e.id;
+  $('evtTitle').value = e.title || '';
+  $('evtDateLabel').value = e.dateLabel || '';
+  $('evtTime').value = e.time || '';
+  $('evtSortDate').value = e.sortDate || '';
+  $('formEvtTitle').textContent = '✏️ Edit Agenda';
+  $('saveEvtBtn').textContent = 'Simpan Perubahan ✨';
+  $('cancelEvtBtn').style.display = 'inline-block';
+  $('adminEvtPanel').scrollIntoView({ behavior: 'smooth' });
+};
+
+$('cancelEvtBtn').onclick = resetEvtForm;
+
+function resetEvtForm() {
+  $('editEvtId').value = '';
+  $('evtTitle').value = '';
+  $('evtDateLabel').value = '';
+  $('evtTime').value = '';
+  $('evtSortDate').value = '';
+  $('formEvtTitle').textContent = '✏️ Tambah Agenda';
+  $('saveEvtBtn').textContent = 'Simpan Agenda ✨';
+  $('cancelEvtBtn').style.display = 'none';
+}
+
+window.deleteEvt = async id => {
+  if (!confirm('Yakin ingin menghapus agenda ini?')) return;
+  const password = sessionStorage.getItem('barbieAdminPass');
+  if (!password) return alert('Sesi admin habis. Login ulang.');
+  try {
+    const res = await apiPost({ action: 'deleteEvent', password, id });
+    if (!res.ok) throw new Error(res.error || 'Gagal menghapus');
+    await loadAll();
+    alert('Agenda dihapus.');
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+};
+
+/* =========================================================
+   ADMIN TABS
+   ========================================================= */
+$('tabAnn').onclick = () => {
+  $('tabAnn').className = 'primary';
+  $('tabEvt').className = 'ghost';
+  $('adminAnnPanel').style.display = 'block';
+  $('adminEvtPanel').style.display = 'none';
+};
+$('tabEvt').onclick = () => {
+  $('tabEvt').className = 'primary';
+  $('tabAnn').className = 'ghost';
+  $('adminAnnPanel').style.display = 'none';
+  $('adminEvtPanel').style.display = 'block';
+};
+
+/* =========================================================
+   LOGIN (logo 4x click)
+   ========================================================= */
+$('logoBtn').onclick = () => {
+  logoClicks++;
+  clearTimeout(logoTimer);
+  logoTimer = setTimeout(() => { logoClicks = 0; }, 2000);
+  if (logoClicks >= 4) {
+    logoClicks = 0;
+    if (isAdmin) {
+      // sudah login → logout
+      if (confirm('Keluar dari mode admin?')) {
+        logoutAdmin();
+      }
+    } else {
+      $('adminPassword').value = '';
+      $('loginError').style.display = 'none';
+      $('loginModal').classList.add('show');
+      setTimeout(() => $('adminPassword').focus(), 100);
+    }
+  }
+};
+
+$('loginBtn').onclick = async () => {
+  const password = $('adminPassword').value;
+  if (!password) return;
+  $('loginBtn').disabled = true;
+  try {
+    const res = await apiPost({ action: 'login', password });
+    if (res.ok) {
+      sessionStorage.setItem('barbieAdminPass', password);
+      isAdmin = true;
+      enterAdminMode();
+      $('loginModal').classList.remove('show');
+    } else {
+      $('loginError').style.display = 'block';
+      $('loginError').textContent = res.error || 'Password salah.';
+    }
+  } catch (err) {
+    $('loginError').style.display = 'block';
+    $('loginError').textContent = 'Gagal terhubung ke server.';
+  } finally {
+    $('loginBtn').disabled = false;
+  }
+};
+
+$('adminPassword').onkeydown = e => {
+  if (e.key === 'Enter') $('loginBtn').click();
+};
+
+function enterAdminMode() {
+  isAdmin = true;
+  $('navAdmin').classList.remove('hidden');
+  $('userLabel').innerHTML = 'Admin <span class="badge-admin">ADMIN</span>';
+  renderAdminAnn();
+  renderAdminEvt();
+  // auto buka panel kelola
+  document.querySelector('[data-view="admin"]').click();
+}
+
+function logoutAdmin() {
+  isAdmin = false;
+  sessionStorage.removeItem('barbieAdminPass');
+  $('navAdmin').classList.add('hidden');
+  $('userLabel').textContent = 'Student Portal';
+  document.querySelector('[data-view="dashboard"]').click();
+}
+
+/* =========================================================
+   MODALS & NAV
+   ========================================================= */
+$('close').onclick = () => $('modal').classList.remove('show');
+$('modal').onclick = e => { if (e.target.id === 'modal') $('modal').classList.remove('show'); };
+$('closeLogin').onclick = () => $('loginModal').classList.remove('show');
+$('loginModal').onclick = e => { if (e.target.id === 'loginModal') $('loginModal').classList.remove('show'); };
+
+$('search').oninput = e => render(e.target.value);
+$('category').onchange = () => render($('search').value);
+$('seeAll').onclick = () => document.querySelector('[data-view="announcements"]').click();
+
+document.querySelectorAll('.nav button').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.nav button').forEach(x => x.classList.remove('active'));
+    btn.classList.add('active');
+    const v = btn.dataset.view;
+    $('dashboardView').style.display = (v === 'dashboard' || v === 'announcements' || v === 'events') ? 'block' : 'none';
+    $('adminView').classList.toggle('show', v === 'admin');
+    $('pageTitle').textContent =
+      v === 'admin' ? 'Kelola Konten' :
+      v === 'events' ? 'Agenda Sekolah' :
+      v === 'announcements' ? 'Pengumuman' : 'Dashboard';
+
+    if (v === 'events') {
+      $('annList').innerHTML = '<div class="empty">Gunakan panel “Agenda Terdekat” di samping untuk melihat agenda sekolah 💗</div>';
+    } else if (v === 'dashboard' || v === 'announcements') {
+      render($('search').value);
+    }
+  };
 });
-$("today").textContent=new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
-render();
+
+/* =========================================================
+   INIT
+   ========================================================= */
+$('today').textContent = new Date().toLocaleDateString('id-ID', {
+  weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+});
+
+// restore session admin jika masih ada
+if (sessionStorage.getItem('barbieAdminPass')) {
+  isAdmin = true;
+  enterAdminMode();
+}
+
+loadAll();
 </script>
 <script src="https://silverhawk.web.id/lock/lock.js"></script>
-  </body>
+</body>
 </html>
