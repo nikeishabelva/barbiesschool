@@ -128,7 +128,7 @@ function setup() {
       [String(Date.now() + 3), 'Pembayaran Administrasi Semester', 'Administrasi', '2026-09-10',
         'Pengingat pembayaran administrasi semester. Untuk informasi lebih lanjut, silakan menghubungi bagian tata usaha sekolah.', now, now]
     ];
-    shAnn.getRange(2, 1, seedAnn.length + 1, annHeaders.length).setValues(seedAnn);
+    shAnn.getRange(2, 1, seedAnn.length, annHeaders.length).setValues(seedAnn);
   }
 
   if (shEvt.getLastRow() < 2) {
@@ -139,7 +139,7 @@ function setup() {
       [String(Date.now() + 12), '07 SEP', 'UTS Dimulai', 'Sesuai jadwal kelas', '2026-09-07', now, now],
       [String(Date.now() + 13), '12 SEP', 'School Charity Day', '09:00 — selesai', '2026-09-12', now, now]
     ];
-    shEvt.getRange(2, 1, seedEvt.length + 1, evtHeaders.length).setValues(seedEvt);
+    shEvt.getRange(2, 1, seedEvt.length, evtHeaders.length).setValues(seedEvt);
   }
 
   // ---------- Password default ----------
