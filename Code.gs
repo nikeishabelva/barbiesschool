@@ -1,19 +1,34 @@
 /**
- * Barbie School — Backend (Google Apps Script)
- * Spreadsheet auto-generated + headers
- * Password & secrets hanya di Script Properties
+ * ============================================================
+ *  Barbie School — Backend (Google Apps Script)
+ * ============================================================
  *
- * SETUP:
- * 1. Buat project Apps Script baru (script.google.com)
- * 2. Paste kode ini ke Code.gs
- * 3. Jalankan fungsi setup() sekali (izin Spreadsheet + Drive)
- * 4. Project Settings → Script Properties:
- *      ADMIN_PASSWORD = Bismillaah
- *      (opsional) SPREADSHEET_ID = <id>  → diisi otomatis oleh setup()
- * 5. Deploy → New deployment → Web app
- *      - Execute as: Me
- *      - Who has access: Anyone
- * 6. Salin URL Web App, tempel di index.html (CONFIG.API_URL)
+ *  CARA SETUP YANG BENAR (ikuti urutan ini):
+ *
+ *  CARA A — PALING MUDAH (disarankan)
+ *  1. Buka https://sheets.google.com → buat spreadsheet kosong baru
+ *  2. Beri nama: "Barbie School — Database"
+ *  3. Klik menu: Extensions → Apps Script
+ *  4. Hapus kode default, paste SEMUA kode ini
+ *  5. Simpan (Ctrl+S), beri nama project: Barbie School API
+ *  6. Di dropdown fungsi (atas), pilih "setup" lalu klik Run ▶
+ *  7. Muncul popup izin → Review permissions → pilih akun Google
+ *     → Advanced → Go to Barbie School API (unsafe) → Allow
+ *  8. Setelah selesai, lihat log di bawah (Execution log)
+ *     atau buka kembali tab spreadsheet-nya → sheet sudah terisi
+ *
+ *  CARA B — Script standalone
+ *  1. Buka https://script.google.com → New project
+ *  2. Paste kode ini, jalankan setup()
+ *  3. Spreadsheet akan muncul di Google Drive (cari "Barbie School")
+ *
+ *  SETELAH setup() BERHASIL:
+ *  - Deploy → New deployment → Web app
+ *    Execute as: Me | Who has access: Anyone
+ *  - Salin URL Web App → tempel di index.html (CONFIG.API_URL)
+ *
+ *  Password admin disimpan di Script Properties (bukan di kode).
+ *  Default: Bismillaah
  */
 
 const SHEET_ANNOUNCEMENTS = 'Announcements';
@@ -21,59 +36,86 @@ const SHEET_EVENTS = 'Events';
 const PROP_PASSWORD = 'ADMIN_PASSWORD';
 const PROP_SSID = 'SPREADSHEET_ID';
 
-// ============== SETUP (jalankan sekali) ==============
+// ============================================================
+//  SETUP — Jalankan fungsi ini SEKALI (pilih "setup" lalu Run)
+// ============================================================
 function setup() {
   const props = PropertiesService.getScriptProperties();
-  let ssId = props.getProperty(PROP_SSID);
-  let ss;
+  let ss = null;
+  let createdNew = false;
 
-  if (ssId) {
-    try {
-      ss = SpreadsheetApp.openById(ssId);
-    } catch (e) {
-      ss = null;
+  // 1) Coba pakai spreadsheet aktif (jika script di-bind ke Sheet)
+  try {
+    ss = SpreadsheetApp.getActiveSpreadsheet();
+  } catch (e) {
+    ss = null;
+  }
+
+  // 2) Kalau belum ada, coba buka dari Script Properties
+  if (!ss) {
+    const savedId = props.getProperty(PROP_SSID);
+    if (savedId) {
+      try {
+        ss = SpreadsheetApp.openById(savedId);
+      } catch (e) {
+        ss = null;
+      }
     }
   }
 
+  // 3) Kalau masih belum ada → buat spreadsheet baru
   if (!ss) {
     ss = SpreadsheetApp.create('Barbie School — Database');
-    props.setProperty(PROP_SSID, ss.getId());
-    Logger.log('Spreadsheet baru dibuat: ' + ss.getUrl());
+    createdNew = true;
   }
 
-  // --- Announcements sheet ---
+  // Simpan ID-nya
+  props.setProperty(PROP_SSID, ss.getId());
+
+  // ---------- Sheet Announcements ----------
   let shAnn = ss.getSheetByName(SHEET_ANNOUNCEMENTS);
   if (!shAnn) {
     shAnn = ss.insertSheet(SHEET_ANNOUNCEMENTS);
   }
   const annHeaders = ['id', 'title', 'category', 'date', 'body', 'createdAt', 'updatedAt'];
-  if (shAnn.getLastRow() === 0 || shAnn.getRange(1, 1).getValue() !== 'id') {
+  const needAnnHeader = shAnn.getLastRow() === 0 || String(shAnn.getRange(1, 1).getValue()) !== 'id';
+  if (needAnnHeader) {
     shAnn.clear();
     shAnn.getRange(1, 1, 1, annHeaders.length).setValues([annHeaders]);
     shAnn.setFrozenRows(1);
-    shAnn.getRange(1, 1, 1, annHeaders.length).setFontWeight('bold').setBackground('#f7a8c4');
+    shAnn.getRange(1, 1, 1, annHeaders.length)
+      .setFontWeight('bold')
+      .setBackground('#f7a8c4')
+      .setFontColor('#4d3541');
+    shAnn.setColumnWidth(1, 140);
+    shAnn.setColumnWidth(2, 280);
+    shAnn.setColumnWidth(5, 400);
   }
 
-  // --- Events sheet ---
+  // ---------- Sheet Events ----------
   let shEvt = ss.getSheetByName(SHEET_EVENTS);
   if (!shEvt) {
     shEvt = ss.insertSheet(SHEET_EVENTS);
   }
   const evtHeaders = ['id', 'dateLabel', 'title', 'time', 'sortDate', 'createdAt', 'updatedAt'];
-  if (shEvt.getLastRow() === 0 || shEvt.getRange(1, 1).getValue() !== 'id') {
+  const needEvtHeader = shEvt.getLastRow() === 0 || String(shEvt.getRange(1, 1).getValue()) !== 'id';
+  if (needEvtHeader) {
     shEvt.clear();
     shEvt.getRange(1, 1, 1, evtHeaders.length).setValues([evtHeaders]);
     shEvt.setFrozenRows(1);
-    shEvt.getRange(1, 1, 1, evtHeaders.length).setFontWeight('bold').setBackground('#f7a8c4');
+    shEvt.getRange(1, 1, 1, evtHeaders.length)
+      .setFontWeight('bold')
+      .setBackground('#f7a8c4')
+      .setFontColor('#4d3541');
   }
 
-  // Hapus sheet default "Sheet1" jika masih ada
+  // Hapus Sheet1 default jika masih ada & sudah ada sheet lain
   const defaultSheet = ss.getSheetByName('Sheet1');
   if (defaultSheet && ss.getSheets().length > 1) {
-    ss.deleteSheet(defaultSheet);
+    try { ss.deleteSheet(defaultSheet); } catch (e) { /* ignore */ }
   }
 
-  // Seed data contoh (hanya jika kosong)
+  // ---------- Seed data contoh (hanya jika kosong) ----------
   if (shAnn.getLastRow() < 2) {
     const now = new Date().toISOString();
     const seedAnn = [
@@ -86,7 +128,7 @@ function setup() {
       [String(Date.now() + 3), 'Pembayaran Administrasi Semester', 'Administrasi', '2026-09-10',
         'Pengingat pembayaran administrasi semester. Untuk informasi lebih lanjut, silakan menghubungi bagian tata usaha sekolah.', now, now]
     ];
-    shAnn.getRange(2, 1, seedAnn.length, annHeaders.length).setValues(seedAnn);
+    shAnn.getRange(2, 1, seedAnn.length + 1, annHeaders.length).setValues(seedAnn);
   }
 
   if (shEvt.getLastRow() < 2) {
@@ -97,25 +139,92 @@ function setup() {
       [String(Date.now() + 12), '07 SEP', 'UTS Dimulai', 'Sesuai jadwal kelas', '2026-09-07', now, now],
       [String(Date.now() + 13), '12 SEP', 'School Charity Day', '09:00 — selesai', '2026-09-12', now, now]
     ];
-    shEvt.getRange(2, 1, seedEvt.length, evtHeaders.length).setValues(seedEvt);
+    shEvt.getRange(2, 1, seedEvt.length + 1, evtHeaders.length).setValues(seedEvt);
   }
 
-  // Pastikan password sudah di-set
+  // ---------- Password default ----------
   if (!props.getProperty(PROP_PASSWORD)) {
     props.setProperty(PROP_PASSWORD, 'Bismillaah');
-    Logger.log('Password default diset ke: Bismillaah (ganti di Script Properties jika perlu)');
   }
 
-  Logger.log('✅ Setup selesai!');
-  Logger.log('Spreadsheet ID: ' + ss.getId());
-  Logger.log('URL: ' + ss.getUrl());
-  return { ok: true, spreadsheetId: ss.getId(), url: ss.getUrl() };
+  // ---------- Hasil (lihat di Execution log) ----------
+  const url = ss.getUrl();
+  const id = ss.getId();
+
+  Logger.log('========================================');
+  Logger.log('✅ SETUP BERHASIL!');
+  Logger.log('========================================');
+  Logger.log('Spreadsheet: ' + ss.getName());
+  Logger.log('ID         : ' + id);
+  Logger.log('URL        : ' + url);
+  Logger.log('Password   : (lihat Script Properties → ADMIN_PASSWORD)');
+  Logger.log('Sheet      : Announcements + Events sudah siap');
+  if (createdNew) {
+    Logger.log('CATATAN    : Spreadsheet BARU dibuat. Cari di Google Drive dengan nama "Barbie School — Database"');
+  } else {
+    Logger.log('CATATAN    : Menggunakan spreadsheet yang sudah ada. Refresh tab spreadsheet untuk melihat sheet baru.');
+  }
+  Logger.log('========================================');
+
+  // Return object (terlihat di hasil eksekusi)
+  return {
+    ok: true,
+    message: 'Setup berhasil!',
+    spreadsheetName: ss.getName(),
+    spreadsheetId: id,
+    spreadsheetUrl: url,
+    createdNew: createdNew
+  };
 }
 
-// ============== HELPERS ==============
+// ============================================================
+//  CEK STATUS — Jalankan ini untuk melihat apakah setup sudah OK
+// ============================================================
+function checkSetup() {
+  const props = PropertiesService.getScriptProperties();
+  const ssId = props.getProperty(PROP_SSID);
+  const pass = props.getProperty(PROP_PASSWORD);
+
+  Logger.log('--- Status Setup ---');
+  Logger.log('SPREADSHEET_ID : ' + (ssId || '❌ BELUM ADA — jalankan setup()'));
+  Logger.log('ADMIN_PASSWORD : ' + (pass ? '✅ sudah di-set' : '❌ BELUM ADA'));
+
+  if (!ssId) {
+    Logger.log('➡️  Silakan jalankan fungsi setup() terlebih dahulu.');
+    return { ok: false, error: 'Belum di-setup' };
+  }
+
+  try {
+    const ss = SpreadsheetApp.openById(ssId);
+    const sheets = ss.getSheets().map(s => s.getName());
+    Logger.log('Spreadsheet    : ' + ss.getName());
+    Logger.log('URL            : ' + ss.getUrl());
+    Logger.log('Sheets         : ' + sheets.join(', '));
+    Logger.log('✅ Setup terlihat OK');
+    return { ok: true, url: ss.getUrl(), sheets: sheets };
+  } catch (e) {
+    Logger.log('❌ Gagal membuka spreadsheet: ' + e.message);
+    Logger.log('➡️  Jalankan ulang setup()');
+    return { ok: false, error: e.message };
+  }
+}
+
+// ============================================================
+//  HELPERS
+// ============================================================
 function getSS() {
   const ssId = PropertiesService.getScriptProperties().getProperty(PROP_SSID);
-  if (!ssId) throw new Error('SPREADSHEET_ID belum di-set. Jalankan setup() dulu.');
+  if (!ssId) {
+    // Coba active spreadsheet (bound script)
+    try {
+      const active = SpreadsheetApp.getActiveSpreadsheet();
+      if (active) {
+        PropertiesService.getScriptProperties().setProperty(PROP_SSID, active.getId());
+        return active;
+      }
+    } catch (e) { /* ignore */ }
+    throw new Error('SPREADSHEET_ID belum di-set. Jalankan fungsi setup() dulu.');
+  }
   return SpreadsheetApp.openById(ssId);
 }
 
@@ -149,23 +258,24 @@ function sheetToObjects(sheet) {
   });
 }
 
-// ============== API ==============
+// ============================================================
+//  API — doGet (publik)
+// ============================================================
 function doGet(e) {
   try {
-    const action = (e.parameter.action || '').toLowerCase();
+    const action = ((e && e.parameter && e.parameter.action) || '').toLowerCase();
 
     if (action === 'getannouncements') {
       const ss = getSS();
       const list = sheetToObjects(ss.getSheetByName(SHEET_ANNOUNCEMENTS));
-      // urut terbaru dulu
-      list.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+      list.sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
       return jsonResponse({ ok: true, data: list });
     }
 
     if (action === 'getevents') {
       const ss = getSS();
       const list = sheetToObjects(ss.getSheetByName(SHEET_EVENTS));
-      list.sort((a, b) => (a.sortDate || '').localeCompare(b.sortDate || ''));
+      list.sort((a, b) => String(a.sortDate || '').localeCompare(String(b.sortDate || '')));
       return jsonResponse({ ok: true, data: list });
     }
 
@@ -173,19 +283,31 @@ function doGet(e) {
       return jsonResponse({ ok: true, message: 'Barbie School API is online 🎀' });
     }
 
+    // Default: tampilkan status sederhana di browser
+    if (!action) {
+      return jsonResponse({
+        ok: true,
+        message: 'Barbie School API 🎀',
+        usage: 'Gunakan ?action=getAnnouncements atau ?action=getEvents atau ?action=ping'
+      });
+    }
+
     return jsonResponse({ ok: false, error: 'Action tidak dikenal. Gunakan: getAnnouncements, getEvents, ping' });
   } catch (err) {
-    return jsonResponse({ ok: false, error: err.message });
+    return jsonResponse({ ok: false, error: String(err.message || err) });
   }
 }
 
+// ============================================================
+//  API — doPost (admin + login)
+// ============================================================
 function doPost(e) {
   try {
     const body = parseBody(e);
     const action = (body.action || '').toLowerCase();
     const password = body.password || '';
 
-    // ---- Login (cek password saja) ----
+    // ---- Login ----
     if (action === 'login') {
       if (checkAuth(password)) {
         return jsonResponse({ ok: true, message: 'Login berhasil' });
@@ -193,7 +315,7 @@ function doPost(e) {
       return jsonResponse({ ok: false, error: 'Password salah' });
     }
 
-    // Semua aksi admin di bawah ini butuh password
+    // Semua aksi admin butuh password
     if (!checkAuth(password)) {
       return jsonResponse({ ok: false, error: 'Unauthorized. Password salah atau belum login.' });
     }
@@ -215,7 +337,10 @@ function doPost(e) {
         now
       ];
       sh.appendRow(row);
-      return jsonResponse({ ok: true, data: { id, title: row[1], category: row[2], date: row[3], body: row[4], createdAt: now, updatedAt: now } });
+      return jsonResponse({
+        ok: true,
+        data: { id, title: row[1], category: row[2], date: row[3], body: row[4], createdAt: now, updatedAt: now }
+      });
     }
 
     if (action === 'updateannouncement') {
@@ -262,7 +387,10 @@ function doPost(e) {
         now
       ];
       sh.appendRow(row);
-      return jsonResponse({ ok: true, data: { id, dateLabel: row[1], title: row[2], time: row[3], sortDate: row[4], createdAt: now, updatedAt: now } });
+      return jsonResponse({
+        ok: true,
+        data: { id, dateLabel: row[1], title: row[2], time: row[3], sortDate: row[4], createdAt: now, updatedAt: now }
+      });
     }
 
     if (action === 'updateevent') {
@@ -297,6 +425,6 @@ function doPost(e) {
 
     return jsonResponse({ ok: false, error: 'Action tidak dikenal' });
   } catch (err) {
-    return jsonResponse({ ok: false, error: err.message });
+    return jsonResponse({ ok: false, error: String(err.message || err) });
   }
 }
